@@ -1,0 +1,11 @@
+CC=riscv64-unknown-elf-gcc
+AR=riscv64-unknown-elf-ar
+CFLAGS=-march=rv64iac -mabi=lp64
+
+all: libr
+
+libr: Horner.o
+	$(AR) -rsc libr.a Horner.o
+	del -f *.o
+Horner.o: Horner.c
+	$(CC) $(CFLAGS) -c Horner.c -o Horner.o
