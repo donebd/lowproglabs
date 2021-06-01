@@ -68,22 +68,26 @@ void removeNode(Node *node, Tree *tree) {
     }
 }
 
-Node *findNode(int x, Node *root) {//найти первый узел с параметром
+extern Node *hFind(int x, Node *root){
     if (root == NULL) return NULL;
     Node *findRight = NULL;
     Node *findDown = NULL;
     if (root->data == x) {
         return root;
     }
-    if (root->right != NULL) findRight = findNode(x, root->right);
-    if (root->down != NULL) findDown =  findNode(x, root->down);
+    if (root->right != NULL) findRight = hFind(x, root->right);
+    if (root->down != NULL) findDown =  hFind(x, root->down);
     if (findRight != NULL) return findRight;
     if (findDown != NULL) return findDown;
     return NULL;
 }
 
+Node *findNode(int x, Tree *tree) {//найти первый узел с параметром
+    return hFind(x, tree->root);
+}
+
 void removeWith(int x, Tree *tree) {//удалить первый узел с параметром
-    removeNode(findNode(x, tree->root), tree);
+    removeNode(findNode(x, tree), tree);
 }
 
 int calcChild(Node *node) {//посчитать число детей узла
