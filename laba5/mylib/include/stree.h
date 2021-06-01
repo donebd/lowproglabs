@@ -11,18 +11,18 @@ Node {
 struct tree {
     Node *root;
 };
-typedef struct tree tree;
+typedef struct tree Tree;
 
-Node *addNode(int x, Node *tree);
-Node *findClosest(Node *node, Node*root);
-void removeNode(Node *node, Node *root);
+Node *addNode(int x, Node *node);
+extern Node *findClosest(Node *node, Node *root);
+void removeNode(Node *node, Tree *tree);
 Node *findNode(int x, Node *root);
-void removeWith(int x, Node *node, Node *root);
+void removeWith(int x, Tree *tree);
 int calcChild(Node *node);
-Node *Max(Node *root, Node *max);
-struct node *findMax(Node *root);
+extern Node *Max(Node *root, Node *max);
+Node *findMax(Tree *tree);
 struct tree create(int x);
-void f_print(Node *node, int d);
-void tPrint(Node *node, int d);
+extern void hPrint(Node *node, int d);
+void tprint(Tree *node, int d);
 
 #endif //LABA5_STREE_H

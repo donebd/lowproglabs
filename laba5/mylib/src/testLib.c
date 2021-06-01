@@ -10,25 +10,25 @@ void test0() {
     printf("Enter root of tree: ");
     int root;
     scanf("%d", &root);
-    tree tree = create(root);
+    Tree tree = create(root);
     int nodes;
     printf("How many nodes: ");
     int node;
     int a;
     scanf("%d", &nodes);
     for (int i = 0; i < nodes; i++) {
-        f_print(tree.root, 10);
+        tprint(&tree, 10);
         printf("Where connect next node?");
         scanf("%d", &node);
         a = rand();
         addNode(a, findNode(node, tree.root));
     }
-    f_print(tree.root, 10);
+    tprint(&tree, 10);
 }
 
 void test1() {
     printf("Test remove node\n");
-    tree newtree = create(10);
+    Tree newtree = create(10);
     addNode(228, newtree.root);
     addNode(69, findNode(228, newtree.root));
     addNode(98, findNode(69, newtree.root));
@@ -37,8 +37,8 @@ void test1() {
     addNode(137, newtree.root);
     addNode(55, findNode(137, newtree.root));
     addNode(224, findNode(55, newtree.root));
-    f_print(newtree.root, 10);
-    printf("Max element = %d \n", findMax(newtree.root)->data);
+    tprint(&newtree, 10);
+    printf("Max element = %d \n", findMax(&newtree)->data);
     printf("How many nodes want to delete: ");
     int node;
     int nodes;
@@ -46,9 +46,13 @@ void test1() {
     for (int i = 0; i < nodes; i++) {
         printf("Removing element: ");
         scanf("%d", &node);
-        removeWith(node, newtree.root, newtree.root);
-        f_print(newtree.root, 10);
-        printf("Max element = %d \n", findMax(newtree.root)->data);
+        removeWith(node, &newtree);
+        tprint(&newtree, 10);
+        if (newtree.root == NULL) {
+            printf("Test over\n");
+            return;
+        }
+        printf("Max element = %d \n", findMax(&newtree)->data);
     }
 }
 

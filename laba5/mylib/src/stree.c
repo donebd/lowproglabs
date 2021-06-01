@@ -2,21 +2,21 @@
 #include "stdlib.h"
 #include "stree.h"
 
-Node *addNode(int x, Node *tree) {//возвращает адрес ребенка
+Node *addNode(int x, Node *node) {//возвращает адрес ребенка
     Node *new;
-    if (tree == NULL) {
-        tree = (Node *) malloc(sizeof(Node));
-        tree->data = x;
-        tree->down = tree->right = NULL;
-        new = tree;
+    if (node == NULL) {
+        node = (Node *) malloc(sizeof(Node));
+        node->data = x;
+        node->down = node->right = NULL;
+        new = node;
     } else {
-        if (tree->down == NULL) {
-            tree->down = (Node *) malloc(sizeof(Node));
-            tree->down->data = x;
-            tree->down->down = tree->down->right = NULL;
-            new = tree->down;
+        if (node->down == NULL) {
+            node->down = (Node *) malloc(sizeof(Node));
+            node->down->data = x;
+            node->down->down = node->down->right = NULL;
+            new = node->down;
         } else {
-            Node *child = tree->down;
+            Node *child = node->down;
             while (child->right != NULL) {//двигаемся в право
                 child = child->right;
             }
@@ -29,7 +29,7 @@ Node *addNode(int x, Node *tree) {//возвращает адрес ребенк
     return new;
 }
 
-Node *findClosest(Node *node, Node *root) {//найти или брата слева или предка
+extern Node *findClosest(Node *node, Node *root) {//найти или брата слева или предка
     if (node == NULL || root == NULL) return NULL;
     if (root->right == node) return root;
     if (root->down == node) return root;
@@ -42,18 +42,19 @@ Node *findClosest(Node *node, Node *root) {//найти или брата сле
     return NULL;
 }
 
-void removeNode(Node *node, Node *root) {
+void removeNode(Node *node, Tree *tree) {
     if (node == NULL)return;
-    removeNode(node->down, root);
+    removeNode(node->down, tree);
     if (node->right != NULL) {
         node->data = node->right->data;
         node->down = node->right->down;
         node->right = node->right->right;
     } else {
-        Node *closest = findClosest(node, root);
+        Node *closest = findClosest(node, tree->root);
         if (closest == NULL) {
-            removeNode(node->down, root);
-            root->data = -1;
+            removeNode(node->down, tree);
+            free(tree->root);
+            tree->root = NULL;
             return;
         }
         if (closest->right == node) {
@@ -81,8 +82,8 @@ Node *findNode(int x, Node *root) {//найти первый узел с пар�
     return NULL;
 }
 
-void removeWith(int x, Node *node, Node *root) {//удалить первый узел с параметром
-    removeNode(findNode(x, node), root);
+void removeWith(int x, Tree *tree) {//удалить первый узел с параметром
+    removeNode(findNode(x, tree->root), tree);
 }
 
 int calcChild(Node *node) {//посчитать число детей узла
@@ -97,16 +98,19 @@ int calcChild(Node *node) {//посчитать число детей узла
     return cnt;
 }
 
-Node *Max(Node *root, Node *max) {
+extern Node *Max(Node *root, Node *max) {
     if (max->data < root->data) max = root;
     if (root->right != NULL) max = Max(root->right, max);
     if (root->down != NULL) max = Max(root->down, max);
     return max;
 }
 
-Node *findMax(Node *root) {
-    if (root == NULL) return NULL;
-    Node *max = Max(root, root);
+Node *findMax(Tree *tree) {
+    if (tree->root == NULL) {
+        printf("404 Tree not found\n");
+        return NULL;
+    }
+    Node *max = Max(tree->root, tree->root);
     return max;
 }
 
@@ -117,18 +121,21 @@ struct tree create(int x) {
     return new;
 }
 
-void tPrint(Node *node, int d) {
+extern void hPrint(Node *node, int d) {
     if (node == NULL) return;
     for (int i = 0; i < d; i++)
         printf(" ");
     printf("%d\n", node->data);
-    tPrint(node->down, d + 3);
-    tPrint(node->right, d);
+    hPrint(node->down, d + 4);
+    hPrint(node->right, d);
 }
 
-void f_print(Node *node, int d) {//вывод дерева в консоль
-    if (node == NULL) return;
+void tprint(Tree *tree, int d) {//вывод дерева в консоль
+    if (tree->root == NULL) {
+        printf("404 Tree not found\n");
+        return;
+    }
     printf("---------Tree----------\n");
-    tPrint(node,d);
+    hPrint(tree->root,d);
     printf("-----------------------\n");
 }
