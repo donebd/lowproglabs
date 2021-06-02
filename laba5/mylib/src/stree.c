@@ -42,8 +42,29 @@ extern Node *findClosest(Node *node, Node *root) {//найти или брата
     return NULL;
 }
 
+Node *findParent(Node *node, Tree *tree){
+    if (tree == NULL) {
+        printf("404 Tree not found\n");
+        return NULL;
+    }
+    if (findClosest(node, tree->root) == NULL){
+        return NULL;
+    }
+    Node *parent = node;
+    Node *prev = node;
+    while (parent->down != prev){
+        prev = parent;
+        parent = findClosest(parent,tree->root);
+    }
+    return parent;
+}
+
 void removeNode(Node *node, Tree *tree) {
     if (node == NULL)return;
+    if (tree == NULL) {
+        printf("404 Tree not found\n");
+        return;
+    }
     removeNode(node->down, tree);
     if (node->right != NULL) {
         node->data = node->right->data;
@@ -83,10 +104,18 @@ extern Node *hFind(int x, Node *root){
 }
 
 Node *findNode(int x, Tree *tree) {//найти первый узел с параметром
+    if (tree == NULL) {
+        printf("404 Tree not found\n");
+        return NULL;
+    }
     return hFind(x, tree->root);
 }
 
 void removeWith(int x, Tree *tree) {//удалить первый узел с параметром
+    if (tree == NULL) {
+        printf("404 Tree not found\n");
+        return;
+    }
     removeNode(findNode(x, tree), tree);
 }
 
@@ -134,12 +163,12 @@ extern void hPrint(Node *node, int d) {
     hPrint(node->right, d);
 }
 
-void tprint(Tree *tree, int d) {//вывод дерева в консоль
+void tprint(Tree *tree) {//вывод дерева в консоль
     if (tree->root == NULL) {
         printf("404 Tree not found\n");
         return;
     }
     printf("---------Tree----------\n");
-    hPrint(tree->root,d);
+    hPrint(tree->root,5);
     printf("-----------------------\n");
 }

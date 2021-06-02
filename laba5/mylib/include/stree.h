@@ -24,6 +24,7 @@ extern Node *Max(Node *root, Node *max);
 Node *findMax(Tree *tree);
 struct tree create(int x);
 extern void hPrint(Node *node, int d);
-void tprint(Tree *node, int d);
+void tprint(Tree *node);
+Node *findParent(Node *node, Tree *tree);
 
 #endif //LABA5_STREE_H

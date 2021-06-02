@@ -1,16 +1,16 @@
 .PHONY: all clean
 
-OBJS= myapp.o
+OBJS= tests.o
 
 FLAGS= -std=c11 -pedantic -Wall -Wextra -O1 -I ../mylib/include
 
-all: myapp
+all: tests
 
 
 clean:
 	$(R) $(OBJS)
 	$(R) $(OBJS:.o=.d)
-	$(R) myapp myapp.exe
+	$(R) tests tests.exe
 
 vpath %.c  \
     src/
@@ -19,7 +19,7 @@ vpath %.a  \
 
 # Не забудем зависимость от библиотеки!
 # И компилятору, и make передается только название библиотеки, из него формируется имя файла библиотеки
-myapp: $(OBJS) -lmylib
+tests: $(OBJS) -lmylib
 	$(CC) -o $@  $^
 
 %.o: %.c
