@@ -13,8 +13,8 @@ export R=del -f
 build: 
 	make buildlib
 	make buildapp
-	make buildtests
-	@echo
+	make buildtest
+	@echo ------------------------------
 	@echo To start tests write make test
 	@echo To start demo write make app
 
@@ -27,7 +27,7 @@ buildlib:
 buildapp:
 	$(MAKE) -C myapp
 	
-buildtests:
+buildtest:
 	$(MAKE) -C tests
 	
 # Test - запустить модульные тесты и вывести результат на консоль

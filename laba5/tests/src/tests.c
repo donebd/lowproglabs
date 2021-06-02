@@ -5,41 +5,41 @@ void tests() {
     Tree tree = create(10);
     Node *child0 = addNode(55, tree.root);
 
-    if (tree.root->down == child0) printf("Test 1 complete.\n");//test add
+    if (tree.root->down == child0) printf("Test init tree complete.\n");//test add
     else {
-        printf("!!!Test 1 incorrect!!!");
+        printf("!!!Test init tree incorrect!!!");
         return;
     }
 
-    if (findParent(child0, &tree) == tree.root) printf("Test 2 complete.\n");//test find parent
+    if (findParent(child0, &tree) == tree.root) printf("Test find parent complete.\n");//test find parent
     else {
-        printf("!!!Test 2 incorrect!!!");
+        printf("!!!Test find parent incorrect!!!");
         return;
     }
 
-    if (calcChild(tree.root) == 1 && calcChild(child0) == 0) printf("Test 3 complete.\n");//test calc child
+    if (calcChild(tree.root) == 1 && calcChild(child0) == 0) printf("Test calc child complete.\n");//test calc child
     else {
-        printf("!!!Test 3 incorrect!!!");
+        printf("!!!Test calc child incorrect!!!");
         return;
     }
 
     addNode(15, child0);
 
-    if (findParent(findNode(15, &tree), &tree) == child0) printf("Test 4 complete.\n");//test find with par
+    if (findParent(findNode(15, &tree), &tree) == child0) printf("Test find with parameter complete.\n");//test find with par
     else {
-        printf("!!!Test 4 incorrect!!!");
+        printf("!!!Test find with parameter incorrect!!!");
         return;
     }
 
-    if (findParent(tree.root, &tree) == NULL) printf("Test 5 complete.\n");//test find incorrect parent
+    if (findParent(tree.root, &tree) == NULL) printf("Test find incorrect parent complete.\n");//test find incorrect parent
     else {
-        printf("!!!Test 5 incorrect!!!");
+        printf("!!!Test find incorrect parent incorrect!!!");
         return;
     }
 
-    if (findNode(228, &tree) == NULL) printf("Test 6 complete.\n");//test find incorrect node
+    if (findNode(228, &tree) == NULL) printf("Test find incorrect node complete.\n");//test find incorrect node
     else {
-        printf("!!!Test 6 incorrect!!!");
+        printf("!!!Test find incorrect node incorrect!!!");
         return;
     }
 
@@ -48,24 +48,24 @@ void tests() {
     addNode(65, child0);
     addNode(798787979, child0);
 
-    if (findMax(&tree) == findNode(798787979, &tree)) printf("Test 7 complete.\n");//test find max node
+    if (findMax(&tree) == findNode(798787979, &tree)) printf("Test find max node complete.\n");//test find max node
     else {
-        printf("!!!Test 7 incorrect!!!");
+        printf("!!!Test find max node incorrect!!!");
         return;
     }
 
     addNode(45, findNode(798787979, &tree));
 
     if (findParent(findParent(findNode(45, &tree), &tree), &tree) == child0)
-        printf("Test 8 complete.\n");//test nested search
+        printf("Test nested search complete.\n");//test nested search
     else {
-        printf("!!!Test 8 incorrect!!!");
+        printf("!!!Test nested search incorrect!!!");
         return;
     }
 
-    if (calcChild(child0) == 5) printf("Test 9 complete.\n");//test calc child
+    if (calcChild(child0) == 5) printf("Test calc children complete.\n");//test calc child
     else {
-        printf("!!!Test 9 incorrect!!!");
+        printf("!!!Test calc children incorrect!!!");
         return;
     }
 
@@ -73,9 +73,9 @@ void tests() {
 
     if (findNode(45, &tree) == NULL && findNode(798787979, &tree) == NULL && calcChild(child0) == 4 &&
         findMax(&tree)->data == 1488)
-        printf("Test 10 complete.\n");//test remove node
+        printf("Test remove node complete.\n");//test remove node
     else {
-        printf("!!!Test 10 incorrect!!!");
+        printf("!!!Test remove node incorrect!!!");
         return;
     }
 

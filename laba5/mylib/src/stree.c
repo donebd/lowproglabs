@@ -29,7 +29,7 @@ Node *addNode(int x, Node *node) {//возвращает адрес ребенк
     return new;
 }
 
-extern Node *findClosest(Node *node, Node *root) {//найти или брата слева или предка
+Node *findClosest(Node *node, Node *root) {//найти или брата слева или предка
     if (node == NULL || root == NULL) return NULL;
     if (root->right == node) return root;
     if (root->down == node) return root;
@@ -89,7 +89,7 @@ void removeNode(Node *node, Tree *tree) {
     }
 }
 
-extern Node *hFind(int x, Node *root){
+Node *hFind(int x, Node *root){
     if (root == NULL) return NULL;
     Node *findRight = NULL;
     Node *findDown = NULL;
@@ -131,7 +131,7 @@ int calcChild(Node *node) {//посчитать число детей узла
     return cnt;
 }
 
-extern Node *Max(Node *root, Node *max) {
+Node *Max(Node *root, Node *max) {
     if (max->data < root->data) max = root;
     if (root->right != NULL) max = Max(root->right, max);
     if (root->down != NULL) max = Max(root->down, max);
@@ -154,7 +154,7 @@ struct tree create(int x) {
     return new;
 }
 
-extern void hPrint(Node *node, int d) {
+void hPrint(Node *node, int d) {
     if (node == NULL) return;
     for (int i = 0; i < d; i++)
         printf(" ");

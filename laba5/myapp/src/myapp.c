@@ -5,7 +5,7 @@
 
 void demo1() {
     srand(time(NULL));
-    printf("Test creating tree\n");
+    printf("Demo creating tree\n");
     printf("Enter root of tree: ");
     int root;
     scanf("%d", &root);
@@ -26,7 +26,7 @@ void demo1() {
 }
 
 void demo2() {
-    printf("\nTest remove node\n");
+    printf("\nDemo remove node\n");
     Tree newtree = create(10);
     addNode(228, newtree.root);
     addNode(69, findNode(228, &newtree));
